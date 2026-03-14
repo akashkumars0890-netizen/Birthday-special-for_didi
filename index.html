@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Sister</title>
+
+<style>
+body{
+margin:0;
+font-family:'Comic Sans MS',cursive;
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+text-align:center;
+color:white;
+overflow-x:hidden;
+}
+img{display:block;margin:20px auto;}
+.page{display:none;padding:40px;}
+.active{display:block;}
+button{
+padding:12px 25px;border:none;background:#ff4b6e;color:white;
+font-size:18px;border-radius:25px;cursor:pointer;margin-top:20px;
+}
+.closeBtn{
+position:fixed;top:20px;right:20px;background:#ff4b6e;color:white;border:none;
+width:40px;height:40px;border-radius:50%;font-size:20px;cursor:pointer;
+box-shadow:0 6px 15px rgba(0,0,0,0.3);
+}
+#timer{
+font-size:28px;background:white;color:#ff4b6e;padding:18px 35px;border-radius:15px;
+display:inline-block;box-shadow:0 15px 35px rgba(0,0,0,0.4);
+}
+.gift{width:220px;cursor:pointer;animation:shake 1.5s infinite;}
+@keyframes shake{
+0%{transform:rotate(0)}25%{transform:rotate(5deg)}
+50%{transform:rotate(-5deg)}75%{transform:rotate(5deg)}
+100%{transform:rotate(0)}
+}
+.flower{position:fixed;top:-20px;font-size:25px;animation:fall 6s linear;}
+@keyframes fall{0%{transform:translateY(-20px)}100%{transform:translateY(100vh)}}
+
+.envelope{
+width:260px;height:170px;background:#f7e7ce;margin:auto;position:relative;
+cursor:pointer;border-radius:8px;box-shadow:0 15px 30px rgba(0,0,0,0.35);
+}
+.flap{
+position:absolute;top:0;left:0;width:0;height:0;
+border-left:130px solid transparent;border-right:130px solid transparent;
+border-top:90px solid #f1dcb5;transform-origin:top;transition:.6s;
+}
+.envelope.open .flap{transform:rotateX(180deg);}
+
+.letter{
+display:none;background:white;color:#ff4b6e;padding:20px;border-radius:12px;
+margin-top:20px;text-align:left;box-shadow:0 10px 25px rgba(0,0,0,0.3);
+font-size:20px;line-height:1.8;
+}
+
+.balloon{font-size:40px;position:absolute;cursor:pointer;}
+#score{font-size:24px}
+
+.bar{width:80%;background:white;margin:auto;border-radius:20px;overflow:hidden;}
+#loveBar{height:30px;width:0%;background:#ff4b6e;transition:1s;}
+
+.cake{width:220px;margin:auto;}
+.layer1{height:60px;background:#ff4b6e;border-radius:10px;}
+.layer2{height:40px;background:#ffc2d1;margin:0 20px;border-radius:10px;}
+.candle{width:12px;height:40px;background:white;margin:auto;position:relative;}
+.flame{
+width:16px;height:16px;background:orange;border-radius:50%;
+position:absolute;top:-15px;left:-2px;animation:flicker .3s infinite alternate;
+}
+@keyframes flicker{from{transform:scale(1)}to{transform:scale(1.3)}}
+
+.shayariBox{
+max-width:650px;margin:auto;background:white;color:#ff4b6e;padding:30px;
+border-radius:20px;font-size:22px;line-height:1.8;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+</style>
+</head>
+
+<body>
+
+<div class="page active" id="p1">
+<h1>Welcome Birthday Girl 🎉</h1>
+<p>This website is specially made for you 💖</p>
+
+<img src="panda-happy-birthday.webp" width="220">
+
+<button onclick="nextPage(2)">Start Surprise</button>
+</div>
+
+<div class="page" id="p2">
+<h1>Time Since You Were Born ⏳</h1>
+<div id="timer"></div>
+<br>
+<button onclick="nextPage(3)">Next</button>
+</div>
+
+<div class="page" id="p3">
+<h1>Surprise For You 🎁</h1>
+<img src="merry-christmas-happy-holidays.webp" class="gift" onclick="talkGift()">
+<p>Tap the gift for a birthday message</p>
+<button onclick="nextPage(4)">Next</button>
+</div>
+
+<div class="page" id="p4">
+<h1>For My Lovely Sister 💖</h1>
+
+<div class="shayariBox">
+🌸 Dear Sister 🌸 <br><br>
+A sister like you is a gift so rare,<br>
+Someone who always shows love and care.<br>
+Your smile spreads happiness everywhere,<br>
+Your kindness makes life more fair.<br><br>
+Through every laugh and every tear,<br>
+You have always been standing near.<br>
+Not just my sister but my best friend too,<br>
+The world is brighter because of you.<br><br>
+On your birthday I wish for you,<br>
+Dreams come true the whole year through.<br>
+Stay happy, shining and full of light,<br>
+My dear sister you make life bright. ❤️
+</div>
+
+<button onclick="startFlowers();nextPage(5)">Next</button>
+</div>
+
+<div class="page" id="p5">
+<h1>A Letter For You 💌</h1>
+
+<div class="envelope" id="env" onclick="openLetter()">
+<div class="flap"></div>
+</div>
+
+<div class="letter" id="letter">
+<ul>
+<li>🌸 You are the most beautiful sister</li>
+<li>😊 Your smile spreads happiness everywhere</li>
+<li>✨ Your eyes shine like bright stars</li>
+<li>🥰 Your cuteness melts hearts</li>
+<li>🧠 Your intelligence makes us proud</li>
+<li>💖 Your kindness makes the world better</li>
+<li>🌈 You are a blessing in my life</li>
+<li>🤗 I am lucky to have you as my sister</li>
+</ul>
+</div>
+
+<button onclick="nextPage(6)">Next</button>
+</div>
+
+<div class="page" id="p6">
+<h1>Balloon Game 🎈</h1>
+<div id="score">Score: 0</div>
+<button onclick="startGame()">Start Game</button>
+<br>
+<button onclick="nextPage(7)">Next</button>
+</div>
+
+<div class="page" id="p7">
+<h1>Sister Love Meter ❤️</h1>
+
+<img src="panda-happy-birthday.webp" width="220" id="loveGif" src="penguin-toys.webp" style="display:none">
+
+<div class="bar"><div id="loveBar"></div></div>
+<h2 id="lovePercent">0%</h2>
+<button onclick="increaseLove()">Increase Love</button>
+<h2 id="loveMsg"></h2>
+<button onclick="nextPage(8)">Next</button>
+</div>
+
+<div class="page" id="p8">
+<h1>Cake Cutting Time 🎂</h1>
+
+<img src="bearish-bear.gif" width="230" id="cakeGif" src="bearish-bear.gif" style="display:none">
+
+<div class="cake">
+<div class="candle"><div class="flame" id="flame"></div></div>
+<div class="layer2"></div>
+<div class="layer1"></div>
+</div>
+
+<br>
+<button onclick="cutCake()">Blow Candle</button>
+<h2 id="cakeMsg"></h2>
+<button onclick="nextPage(9)">Final Wish</button>
+</div>
+
+<div class="page" id="p9">
+<button class="closeBtn" onclick="closeSite()">✖</button>
+<h1>Happy Birthday Sister 🎉</h1>
+<h2 style="margin-top:20px;line-height:1.8">
+May your birthday be filled with happiness and beautiful moments.<br>
+May your smile always shine bright and your dreams always come true.<br>
+You are not just my sister you are my best friend and my biggest blessing.<br>
+Wishing you a magical birthday ❤️
+</h2>
+</div>
+
+<script>
+function nextPage(p){
+document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"))
+document.getElementById("p"+p).classList.add("active")
+}
+
+let birth=new Date("March 14 2006")
+let timer=document.getElementById("timer")
+
+setInterval(()=>{
+let now=new Date()
+let diff=now-birth
+let sec=Math.floor(diff/1000)%60
+let min=Math.floor(diff/60000)%60
+let hr=Math.floor(diff/3600000)%24
+let days=Math.floor(diff/86400000)
+timer.innerHTML=days+" days "+hr+" hours "+min+" minutes "+sec+" seconds"
+},1000)
+
+function talkGift(){
+let msg=new SpeechSynthesisUtterance("Happy Birthday! A special surprise is waiting for you!")
+speechSynthesis.speak(msg)
+}
+
+function startFlowers(){
+setInterval(()=>{
+let f=document.createElement("div")
+f.className="flower"
+f.innerHTML="❤"
+f.style.left=Math.random()*100+"%"
+document.body.appendChild(f)
+setTimeout(()=>f.remove(),6000)
+},400)
+}
+
+function openLetter(){
+document.getElementById("env").classList.add("open")
+document.getElementById("letter").style.display="block"
+}
+
+let score=0
+function startGame(){
+setInterval(()=>{
+let b=document.createElement("div")
+b.className="balloon"
+b.innerHTML="🎈"
+b.style.left=Math.random()*90+"%"
+b.style.top=Math.random()*80+"%"
+b.onclick=function(){
+score++
+document.getElementById("score").innerHTML="Score: "+score
+b.remove()
+}
+document.body.appendChild(b)
+setTimeout(()=>b.remove(),3000)
+},800)
+}
+
+let love=0
+function increaseLove(){
+if(love<100)love+=10
+document.getElementById("loveBar").style.width=love+"%"
+document.getElementById("lovePercent").innerHTML=love+"%"
+if(love>=100){
+document.getElementById("loveMsg").innerHTML="Best Sister Ever! 💖"
+document.getElementById("loveGif").style.display="block"
+}
+}
+
+function cutCake(){
+document.getElementById("flame").style.display="none"
+document.getElementById("cakeMsg").innerHTML="Happy Birthday My Wonderful Sister ❤️"
+document.getElementById("cakeGif").style.display="block"
+}
+
+function closeSite(){
+document.body.innerHTML="<h1 style='margin-top:120px'>Thank you for visiting 🙏</h1>"
+}
+</script>
+
+</body>
+</html>
